@@ -111,8 +111,7 @@ Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
 Crashlytics.Crashlytics.Log(XXX);
 
 // 新
-private static FirebaseCrashlytics crashlytics = FirebaseCrashlytics.Instance;
-crashlytics.Log(XXX);
+FirebaseCrashlytics.Instance.Log(XXX);
 ```
 
 ### setCustomKeyへの統一
@@ -122,8 +121,7 @@ crashlytics.Log(XXX);
 Crashlytics.Crashlytics.SetString(XXX);
 
 // 新
-private static FirebaseCrashlytics crashlytics = FirebaseCrashlytics.Instance;
-crashlytics.SetCustomKey(XXX);
+FirebaseCrashlytics.Instance.SetCustomKey(XXX);
 ```
 
 ### setUserIdentifierをsetUserIdに変更
@@ -133,8 +131,7 @@ crashlytics.SetCustomKey(XXX);
 Crashlytics.Crashlytics.SetUserIdentifier(userId);
 
 // 新
-private static FirebaseCrashlytics crashlytics = FirebaseCrashlytics.Instance;
-crashlytics.SetUserId(userId);
+FirebaseCrashlytics.Instance.SetUserId(userId);
 ```
 
 ### setUserNameとsetUserEmailの削除
@@ -151,8 +148,7 @@ Crashlytics.Crashlytics.SetUserName(userName);
 Crashlytics.Crashlytics.LogException(exception);
 
 // 新
-private static FirebaseCrashlytics crashlytics = FirebaseCrashlytics.Instance;
-crashlytics.RecordException(exception);
+FirebaseCrashlytics.Instance.RecordException(exception);
 ```
 
 
@@ -163,3 +159,19 @@ crashlytics.RecordException(exception);
 
 
 # Failed to retrieve settings from ...
+## 状況
+Firebaseで新規でアプリを作成し、Crashlyticsを有効にした。  
+このアプリに対しクラッシュを発生させたが、コンソールが初期化されず、クラッシュログが取れない。  
+<img src="https://github.com/a-imai/XamarinCrashlyticsUpdateSample/blob/image/crashlyticsConsole.png" width="320">
+
+下記手順に従い、コンソールでログを取得した。  
+[Enable Crashlytics debug logging](https://firebase.google.com/docs/crashlytics/test-implementation?authuser=0&platform=android#enable_debug_logging)  
+すると、下記のようなエラーが出ている。
+```
+E FirebaseCrashlytics: Failed to retrieve settings from https://firebase-settings.crashlytics.com/spi/v2/platforms/android/gmp/XXXX/settings
+```
+
+このエラーについて、Googleに確認を取りながら対処した。
+
+## 対処方法
+（現在、Googleに最終的な手順を確認中）
