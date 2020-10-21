@@ -1,5 +1,5 @@
 # Overview
-Firebase sent the following message. This forced developers to update from the Fabric SDK to the Fireabse SDK by November 15, 2020.  
+Firebase sent the following message. This forced developers to upgrade from the Fabric SDK to the Fireabse SDK by November 15, 2020.  
 
 "Note: The Fabric SDK is now deprecated and will continue reporting your app's crashes until November 15, 2020. On this date, the Fabric SDK and old versions of the Firebase Crashlytics SDK will stop sending crashes for your app. To continue getting crash reports in the Firebase console, make sure you upgrade to the Firebase Crashlytics SDK versions 17.0.0+ for Android,4.0.0+ for iOS, and 6.15.0+ for Unity."  
 
@@ -8,10 +8,10 @@ However, this package is not compatible with SDK 17.
 Instead, it seems that the `Xamarin.Firebase.Crashlytics` package was created.  
 There is no documentation on how to use this package, and developers have to rely on the official Firebase documentation to implement it.  
 
-This document records how I update to the Firebase SDK using `Xamarin.Firebase.Crashlytics` 117.0.0-preview02.  
+This document records how I upgrade to the Firebase SDK using `Xamarin.Firebase.Crashlytics` 117.0.0-preview02.  
 I hope it helps someone.  
 
-* This is not an official procedure. This's just a record I've tried, not a PERFECT procedure. Please note.  
+!! This is not an official procedure. This's just a record I've tried, not a PERFECT procedure. Please note.  
 
 [Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)  
 
@@ -62,4 +62,60 @@ https://github.com/xamarin/GooglePlayServicesComponents/issues/385
 I really appreciate [@sasa-bobic](https://github.com/sasa-bobic)'s advice!
 
 
-## 3. Reinstall google-service.json
+## 3. Reinstall `google-service.json`
+MyApp.Android already has `google-service.json`, but I re-downloaded it from the Firebase site and replaced it just in case.  
+
+Make sure the build action is `Google Services Json`.  
+
+
+## 4. com.crashlytics.android.build_id
+When I was using the previous `Xamarin.Firebase.Crash`, I had the following files in MyApp.Android/Resources/values.  
+
+strings.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="com.crashlytics.android.build_id">1.0</string>
+</resources>
+```
+
+If you remove this, an error will occur, so leave it as it is.  
+If not, add it.  
+https://github.com/xamarin/XamarinComponents/issues/956#issuecomment-702037279  
+
+(Honestly, I don't know what to set for build_id.  
+ 1.0 is a sloppy value...)  
+
+
+## 5. Removed `firebase_crashlytics_collection_enabled` from `AndroidManifest.xml`
+When I was using `Xamarin.Firebase.Crash`, I put the following in `AndroidManifest.xml`.  
+However, this does not enable crash logging, so delete it.  
+
+AndroidManifest.xml
+```xml
+<meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+```
+
+
+## 6. Implementation fix
+Refer to the Firebase upgrade procedure and modify the implementation on MyApp.Android.  
+[Upgrade to the Firebase Crashlytics SDK](https://firebase.google.com/docs/crashlytics/upgrade-sdk?hl=en&platform=android)
+
+### Remove Fabric reference
+MainActivity.cs
+```C#
+// Deleted below
+Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
+```
+
+### Log method changes
+The static `Crashlytics.log` method has been removed and now uses the instance method instead.  
+```C#
+// Old
+Crashlytics.Crashlytics.Log(XXX);
+
+// New
+FirebaseCrashlytics.Instance.Log(XXX);
+```
+
+### Unification to setCustomKey
