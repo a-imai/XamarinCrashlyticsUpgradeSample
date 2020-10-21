@@ -3,13 +3,16 @@ Firebaseから下記のような注意書きが発せられ、デベロッパー
 
 "Note: The Fabric SDK is now deprecated and will continue reporting your app's crashes until November 15, 2020. On this date, the Fabric SDK and old versions of the Firebase Crashlytics SDK will stop sending crashes for your app. To continue getting crash reports in the Firebase console, make sure you upgrade to the Firebase Crashlytics SDK versions 17.0.0+ for Android,4.0.0+ for iOS, and 6.15.0+ for Unity."
 
-Xamarinユーザーの場合、AndroidではXamarin.Firebase.Crashのパッケージを使って実装している人が多いと思いますが、  
+Xamarinユーザーの場合、Androidでは`Xamarin.Firebase.Crash`のパッケージを使って実装している人が多いと思いますが、  
 このパッケージはSDK 16系までしか対応していません。  
-代わりに、Xamarin.Firebase.Crashlyticsというパッケージが作られたようなのですが、  
+代わりに、`Xamarin.Firebase.Crashlytics`というパッケージが作られたようなのですが、  
 このパッケージの使用方法に関するドキュメントは存在せず、Firebase公式ドキュメントなどを頼りに、手探りで実装する必要があります。
 
-このドキュメントは、私がXamarin.Firebase.Crashlyticsの117.0.0-preview02を用いてFirebase SDKに対応した方法を記載したものです。  
-誰かの助けになれば幸いです。
+このドキュメントは、私が`Xamarin.Firebase.Crashlytics`の117.0.0-preview02を用いてFirebase SDKに対応した方法を記載したものです。  
+誰かの助けになれば幸いです。  
+※公式な手順ではありません。あくまで私が試した記録であり、完璧な手順でもありません。ご了承ください。
+
+[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)
 
 
 # 実装環境
@@ -51,22 +54,22 @@ MyApp.Androidに下記のパッケージを追加。
 |Xamarin.Google.Android.DataTransport.TransportRuntime|2.2.2|
 |Xamarin.AndroidX.AppCompat.AppCompatResources|1.1.0.1|
 
-Xamarin.AndroidX.AppCompat.AppCompatResourcesは、ビルド時にパッケージが見つからないというエラーが発生したため、.csprojに記載した。
+`Xamarin.AndroidX.AppCompat.AppCompatResources`は、ビルド時にパッケージが見つからないというエラーが発生したため、.csprojに記載した。
 
-Xamarin.Google.Dagger、Xamarin.Firebase.Messaging、Xamarin.Google.Android.DataTransport.TransportBackendCct、Xamarin.Google.Android.DataTransport.TransportRuntimeは、起動時のエラーを解消するために必要だった。  
+`Xamarin.Google.Dagger`、`Xamarin.Firebase.Messaging`、`Xamarin.Google.Android.DataTransport.TransportBackendCct`、`Xamarin.Google.Android.DataTransport.TransportRuntime`は、起動時のエラーを解消するために必要だった。  
 https://github.com/xamarin/GooglePlayServicesComponents/issues/385  
 [@sasa-bobic](https://github.com/sasa-bobic)のアドバイスに本当に感謝しています！
 
 
 ## 3. google-service.jsonの再配置
-MyApp.Androidには、すでにgoogle-service.jsonが配置されているが、  
+MyApp.Androidには、すでに`google-service.json`が配置されているが、  
 念のため、Firebaseのサイトから再ダウンロードし、置き換えた。
 
-ビルドアクションがGoogle Services Jsonになっていることを確認。
+ビルドアクションが`Google Services Json`になっていることを確認。
 
 
 ## 4. com.crashlytics.android.build_id
-以前のXamarin.Firebase.Crashを使用していた時に、下記のファイルをMyApp.Android/Resources/valuesに配置していた。
+以前の`Xamarin.Firebase.Crash`を使用していた時に、下記のファイルをMyApp.Android/Resources/valuesに配置していた。
 
 strings.xml
 ```xml
@@ -84,7 +87,7 @@ https://github.com/xamarin/XamarinComponents/issues/956#issuecomment-702037279
 
 
 ## 5. AndroidManifest.xmlからfirebase_crashlytics_collection_enabledを削除
-Xamarin.Firebase.Crashを使用していた際に、AndroidManifest.xmlに下記を入れていた。  
+`Xamarin.Firebase.Crash`を使用していた際に、`AndroidManifest.xml`に下記を入れていた。  
 しかし、これがあるとクラッシュログが有効にならないため、削除する。
 
 AndroidManifest.xml
