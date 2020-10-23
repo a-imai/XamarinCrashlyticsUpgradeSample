@@ -93,6 +93,7 @@ https://github.com/xamarin/XamarinComponents/issues/956#issuecomment-702037279
 
 AndroidManifest.xml
 ```xml
+// 下記を削除
 <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
 ```
 
@@ -118,7 +119,7 @@ Crashlytics.Crashlytics.Log(XXX);
 FirebaseCrashlytics.Instance.Log(XXX);
 ```
 
-### setCustomKeyへの統一
+### `setCustomKey`への統一
 `setBool`、`setString`などが全て`setCustomKey`に変更となった。  
 ```C#
 // 旧
@@ -128,7 +129,7 @@ Crashlytics.Crashlytics.SetString(XXX);
 FirebaseCrashlytics.Instance.SetCustomKey(XXX);
 ```
 
-### setUserIdentifierをsetUserIdに変更
+### `setUserIdentifier`を`setUserId`に変更
 メソッドが置き換わった。
 ```C#
 // 旧
@@ -138,14 +139,14 @@ Crashlytics.Crashlytics.SetUserIdentifier(userId);
 FirebaseCrashlytics.Instance.SetUserId(userId);
 ```
 
-### setUserNameとsetUserEmailの削除
+### `setUserName`と`setUserEmail`の削除
 メソッドが削除された。
 ```C#
-// 以下を削除
+// 下記を削除
 Crashlytics.Crashlytics.SetUserName(userName);
 ```
 
-### logExceptionをrecordExceptionに変更
+### `logException`を`recordException`に変更
 メソッドが置き換わった。
 ```C#
 // 旧
@@ -177,6 +178,7 @@ E FirebaseCrashlytics: Failed to retrieve settings from https://firebase-setting
 
 このエラーについて、Googleに確認を取りながら対処した。  
 
+
 ## 対処方法
 ### re-onboard
 Googleに問い合わせたところ、アプリのre-onboardを試すよう言われた。  
@@ -195,6 +197,7 @@ Googleに問い合わせたところ、アプリのre-onboardを試すよう言�
 
 re-onboardを行って以降、同プロジェクトで別途新規アプリを作成しても、`Failed to retrieve settings from ...`のエラーは再発しなかった。  
 これがどうしてなのか、また二回目のクラッシュ以降でないとクラッシュログが取れていないのはなぜか、など、Googleに質問をしているところ。  
+返信があれば更新します。
 
 また、Googleによると、CrashlyticsのSDKバージョンが17.0.0であることが、現象の原因の一つの可能性があるとのこと。  
 （そりゃあ、Google側はどんな状況であっても最新SDKを使えってまず言うよね……）  
