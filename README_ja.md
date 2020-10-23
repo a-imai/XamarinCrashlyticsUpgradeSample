@@ -12,7 +12,8 @@ Xamarinユーザーの場合、Androidでは`Xamarin.Firebase.Crash`のパッケ
 誰かの助けになれば幸いです。  
 ※公式な手順ではありません。あくまで私が試した記録であり、完璧な手順でもありません。ご了承ください。
 
-[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)
+[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)  
+ちなみに、このパッケージにより参照されるCrashlyticsのSDKは17.0.0。
 
 
 # 実装環境
@@ -174,7 +175,27 @@ Firebaseで新規でアプリを作成し、Crashlyticsを有効にした。
 E FirebaseCrashlytics: Failed to retrieve settings from https://firebase-settings.crashlytics.com/spi/v2/platforms/android/gmp/XXXX/settings
 ```
 
-このエラーについて、Googleに確認を取りながら対処した。
+このエラーについて、Googleに確認を取りながら対処した。  
 
 ## 対処方法
-（現在、Googleに最終的な手順を確認中）
+### re-onboard
+Googleに問い合わせたところ、アプリのre-onboardを試すよう言われた。  
+下記手順で実施。  
+1. Firebaseのプロジェクトから、エラーが発生しているアプリを削除
+2. 削除したアプリと同じパッケージ名で、再度アプリを作成
+3. `google-service.json`をダウンロードしてMyApp.Androidに配置
+4. Crashlyticsのコンソールで、Crashlyticsを有効にするを押下
+5. MyAppをリリースビルドで実行し、クラッシュさせる
+
+5の時点で、`Failed to retrieve settings from ...`のエラーは発生せず、設定の読み込みに成功したとログに出力された。  
+しかし、実際にCrashlyticsのコンソールでクラッシュログが確認できたのは、下記手順を行った時だった。  
+
+6. クラッシュしたアプリを再度起動させ、**もう一度クラッシュさせる**  
+
+
+re-onboardを行って以降、同プロジェクトで別途新規アプリを作成しても、`Failed to retrieve settings from ...`のエラーは再発しなかった。  
+これがどうしてなのか、また二回目のクラッシュ以降でないとクラッシュログが取れていないのはなぜか、など、Googleに質問をしているところ。  
+
+また、Googleによると、CrashlyticsのSDKバージョンが17.0.0であることが、現象の原因の一つの可能性があるとのこと。  
+（そりゃあ、Google側はどんな状況であっても最新SDKを使えってまず言うよね……）  
+これに関してはXamarin.Firebase.Crashlyticsのバージョンアップが行われることを期待するしかない。  
