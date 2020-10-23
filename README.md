@@ -14,7 +14,7 @@ I hope it helps someone.
 !! This is not an official procedure. This's just a record I've tried, not a PERFECT procedure. Please note.  
 
 [Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)  
-
+the Crashlytics SDK referenced by this package is 17.0.0.  
 
 # My environment
 Operating System & Version : macOS 10.15.4 (19E287)  
@@ -93,6 +93,7 @@ However, this does not enable crash logging, so delete it.
 
 AndroidManifest.xml
 ```xml
+// Deleted below
 <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
 ```
 
@@ -118,4 +119,85 @@ Crashlytics.Crashlytics.Log(XXX);
 FirebaseCrashlytics.Instance.Log(XXX);
 ```
 
-### Unification to setCustomKey
+### Unification to `setCustomKey`
+`setBool`, ` setString`, etc. have all been changed to `setCustomKey`.  
+```C#
+// Old
+Crashlytics.Crashlytics.SetString(XXX);
+
+// New
+FirebaseCrashlytics.Instance.SetCustomKey(XXX);
+```
+
+### Change `setUserIdentifier` to `setUserId`
+The method has been replaced.  
+```C#
+// Old
+Crashlytics.Crashlytics.SetUserIdentifier(userId);
+
+// New
+FirebaseCrashlytics.Instance.SetUserId(userId);
+```
+
+### Delete `setUserName` and` setUserEmail`
+The method has been deleted.  
+```C#
+// Deleted below
+Crashlytics.Crashlytics.SetUserName(userName);
+```
+
+### Change `logException` to` recordException`
+The method has been replaced.  
+```C#
+// Old
+Crashlytics.Crashlytics.LogException(exception);
+
+// New
+FirebaseCrashlytics.Instance.RecordException(exception);
+```
+
+
+## 7. Run in RELEASE build
+In my case, with the above procedure, I was able to get the crash log for **the app that had Crashlytics enabled before**.  
+However, for newly created apps on Firebase, the console was not initialized and crash logs could not be taken.  
+Continued below.  
+
+
+# Failed to retrieve settings from ...
+## Detail
+I created a new app in Firebase and enabled Crashlytics.  
+I caused a crash for this app, but the Crashlytics console is not initialized and I cannot get the crash log.  
+<img src="https://github.com/a-imai/XamarinCrashlyticsUpdateSample/blob/image/crashlyticsConsole.png" width="320">
+
+I got the log on the console according to the following procedure.  
+[Enable Crashlytics debug logging](https://firebase.google.com/docs/crashlytics/test-implementation?authuser=0&platform=android#enable_debug_logging)  
+Then, the following error is displayed.  
+```
+E FirebaseCrashlytics: Failed to retrieve settings from https://firebase-settings.crashlytics.com/spi/v2/platforms/android/gmp/XXXX/settings
+```
+
+I dealt with this error while checking with Google.  
+
+
+## Workaround
+### re-onboard
+When I contacted Google, they told me to try the app's re-onboard.  
+I did this with the following steps.  
+1. Remove the failing app from my Firebase project.  
+2. Create the app again with the SAME package name as the deleted app.
+3. Download `google-service.json` and put it on MyApp.Android.  
+4. In the Crashlytics console, clicke Enable Crashlytics.  
+5. Run MyApp in release build and crash.  
+
+At the time of 5, the error of `Failed to retrieve settings from ...` did not occur, and it was output to the log that the settings were successfully read.  
+However, the crash log was actually confirmed on the Crashlytics console when the following procedure was performed.  
+
+6. Relaunch the crashed app and **crash again**.  
+
+After re-onboard, even if I created a new app separately in the same project, the error of `Failed to retrieve settings from ...` did not recur.  
+I'm asking Google why this is, and why the crash log isn't available until after the second crash.  
+I will update if there is a reply.  
+
+Also, according to Google, the SDK version of Crashlytics is 17.0.0, which may be one of the causes of the error.  
+(Well, we know, of course Google says that we must use the latest SDK in any situation...)  
+Regarding this, we can only expect that the version of Xamarin.Firebase.Crashlytics will be upgraded.  
