@@ -12,8 +12,15 @@ Xamarinユーザーの場合、Androidでは`Xamarin.Firebase.Crash`のパッケ
 誰かの助けになれば幸いです。  
 ※公式な手順ではありません。あくまで私が試した記録であり、完璧な手順でもありません。ご了承ください。
 
-[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)  
+[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0)  
 ちなみに、このパッケージにより参照されるCrashlyticsのSDKは17.0.0。
+
+# (2020.10.26)Xamarin.Firebase.Crashlytics 117.0.0 release
+2020/10/25に、Xamarin.Firebase.Crashlyticsは正式版の117.0.0をリリースしました。  
+さっそく試して、このドキュメントの手順で問題なく動くことを確認済みです。  
+よって、概要以外の欄では117.0.0-preview02から117.0.0に書き換えました。  
+
+ま、ほんとは依存関係のバグなんかも一緒に解決されていることを期待したんですがね……。ダメでしたね。
 
 
 # 実装環境
@@ -48,9 +55,9 @@ MyApp.Androidには、下記のCrashlyticsに関連するパッケージが入�
 MyApp.Androidに下記のパッケージを追加。
 |パッケージ|バージョン|
 ----|----
-|Xamarin.Firebase.Crashlytics|117.0.0-preview02|
+|Xamarin.Firebase.Crashlytics|117.0.0|
 |Xamarin.Google.Dagger|2.25.2.1|
-|Xamarin.Firebase.Messaging|120.1.7-preview02|
+|Xamarin.Firebase.Messaging|120.1.7|
 |Xamarin.Google.Android.DataTransport.TransportBackendCct|2.2.2|
 |Xamarin.Google.Android.DataTransport.TransportRuntime|2.2.2|
 |Xamarin.AndroidX.AppCompat.AppCompatResources|1.1.0.1|
