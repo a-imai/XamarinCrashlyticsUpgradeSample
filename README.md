@@ -13,8 +13,13 @@ I hope it helps someone.
 
 !! This is not an official procedure. This's just a record I've tried, not a PERFECT procedure. Please note.  
 
-[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0-preview02)  
+[Xamarin.Firebase.Crashlytics](https://www.nuget.org/packages/Xamarin.Firebase.Crashlytics/117.0.0)  
 the Crashlytics SDK referenced by this package is 17.0.0.  
+
+# (2020.10.26)Xamarin.Firebase.Crashlytics 117.0.0 release
+On October 25, 2020, Xamarin.Firebase.Crashlytics released the official version 117.0.0.  
+I've tried it out and found that the steps in this document work fine.  
+Therefore, I rewrote 117.0.0-preview02 to 117.0.0 in this document other than the Overview.  
 
 # My environment
 Operating System & Version : macOS 10.15.4 (19E287)  
@@ -48,9 +53,9 @@ I uninstalled all of these.
 Install the following packages on MyApp.Android.  
 |package|version|
 ----|----
-|Xamarin.Firebase.Crashlytics|117.0.0-preview02|
+|Xamarin.Firebase.Crashlytics|117.0.0|
 |Xamarin.Google.Dagger|2.25.2.1|
-|Xamarin.Firebase.Messaging|120.1.7-preview02|
+|Xamarin.Firebase.Messaging|120.1.7|
 |Xamarin.Google.Android.DataTransport.TransportBackendCct|2.2.2|
 |Xamarin.Google.Android.DataTransport.TransportRuntime|2.2.2|
 |Xamarin.AndroidX.AppCompat.AppCompatResources|1.1.0.1|
