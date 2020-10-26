@@ -187,16 +187,21 @@ I did this with the following steps.
 2. Create the app again with the SAME package name as the deleted app.
 3. Download `google-service.json` and put it on MyApp.Android.  
 4. In the Crashlytics console, clicke Enable Crashlytics.  
-5. Run MyApp in release build and crash.  
+5. Run MyApp in release build and crash, relaunch.  
 
 At the time of 5, the error of `Failed to retrieve settings from ...` did not occur, and it was output to the log that the settings were successfully read.  
 However, the crash log was actually confirmed on the Crashlytics console when the following procedure was performed.  
 
-6. Relaunch the crashed app and **crash again**.  
+6. **Crash the relaunched app again**.  
 
-After re-onboard, even if I created a new app separately in the same project, the error of `Failed to retrieve settings from ...` did not recur.  
-I'm asking Google why this is, and why the crash log isn't available until after the second crash.  
-I will update if there is a reply.  
+Google says it's a common solution to try re-onboard when you get into these errors (`Failed to retrieve settings from ...`).  
+It seems better to try re-onboard first, and if that doesn't work, contact Google.  
+
+About the fact that the crash log could be confirmed only in the second crash,  
+Google says Crashlytics tries to submit the reports via background network connection post-crash,  
+but it's not guaranteed until the app is relaunched.  
+...That means, on the first crash the report was pending,  and on another crash after relaunch the pending report was submitted?  
+I don't think this is good, but Google says it's the intended behavior. Or, it's possible that my explanation didn't get through well...  
 
 Also, according to Google, the SDK version of Crashlytics is 17.0.0, which may be one of the causes of the error.  
 (Well, we know, of course Google says that we must use the latest SDK in any situation...)  
