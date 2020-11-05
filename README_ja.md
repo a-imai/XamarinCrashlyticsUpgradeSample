@@ -76,7 +76,7 @@ MyApp.Androidには、すでに`google-service.json`が配置されているが�
 ビルドアクションが`Google Services Json`になっていることを確認。
 
 
-## 4. com.crashlytics.android.build_id
+## 4. com.crashlytics.android.mapping_file_id
 +++++**(2020.11.05)**  
 [@jonathanpeppers](https://github.com/jonathanpeppers)のコメントから、`com.crashlytics.android.build_id`が非推奨になっていることが分かりました。  
 https://github.com/xamarin/GooglePlayServicesComponents/issues/393#issuecomment-721753382  
@@ -89,7 +89,7 @@ strings.xml
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="com.crashlytics.android.build_id">1.0</string>
+    <string name="com.crashlytics.android.mapping_file_id">1.0</string>
 </resources>
 ```
 
@@ -97,7 +97,7 @@ strings.xml
 ない場合は追加する。  
 https://github.com/xamarin/XamarinComponents/issues/956#issuecomment-702037279
 
-※正直、build_idに何を設定するのが適切なのかわかっていません。1.0は適当な値です……。
+※正直、mapping_file_idに何を設定するのが適切なのかわかっていません。1.0は適当な値です……。
 
 
 ## 5. AndroidManifest.xmlからfirebase_crashlytics_collection_enabledを削除
