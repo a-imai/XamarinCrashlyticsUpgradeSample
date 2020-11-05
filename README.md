@@ -73,14 +73,20 @@ MyApp.Android already has `google-service.json`, but I re-downloaded it from the
 Make sure the build action is `Google Services Json`.  
 
 
-## 4. com.crashlytics.android.build_id
+## 4. com.google.firebase.crashlytics.mapping_file_id
++++++**(2020.11.05)**  
+From the comments of [@jonathanpeppers](https://github.com/jonathanpeppers), I learned that `com.crashlytics.android.build_id` is deprecated.  
+https://github.com/xamarin/GooglePlayServicesComponents/issues/393#issuecomment-721753382  
+So I updated the documentation. Use `com.google.firebase.crashlytics.mapping_file_id` instead.  
++++++
+
 When I was using the previous `Xamarin.Firebase.Crash`, I had the following files in MyApp.Android/Resources/values.  
 
 strings.xml
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="com.crashlytics.android.build_id">1.0</string>
+    <string name="com.google.firebase.crashlytics.mapping_file_id">1.0</string>
 </resources>
 ```
 
@@ -88,7 +94,7 @@ If you remove this, an error will occur, so leave it as it is.
 If not, add it.  
 https://github.com/xamarin/XamarinComponents/issues/956#issuecomment-702037279  
 
-(Honestly, I don't know what to set for build_id.  
+(Honestly, I don't know what to set for mapping_file_id.  
  1.0 is a sloppy value...)  
 
 
