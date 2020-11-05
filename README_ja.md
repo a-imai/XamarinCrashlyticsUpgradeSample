@@ -77,6 +77,12 @@ MyApp.Androidには、すでに`google-service.json`が配置されているが�
 
 
 ## 4. com.crashlytics.android.build_id
++++++**(2020.11.05)**  
+[@jonathanpeppers](https://github.com/jonathanpeppers)のコメントから、`com.crashlytics.android.build_id`が非推奨になっていることが分かりました。  
+https://github.com/xamarin/GooglePlayServicesComponents/issues/393#issuecomment-721753382  
+そこで、本ドキュメントでもbuild_idの代わりに`com.google.firebase.crashlytics.mapping_file_id`を使うよう変更しています。  
++++++
+
 以前の`Xamarin.Firebase.Crash`を使用していた時に、下記のファイルをMyApp.Android/Resources/valuesに配置していた。
 
 strings.xml
