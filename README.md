@@ -50,6 +50,15 @@ I uninstalled all of these.
 
 
 ## 2. Install new packages
++++++**(2020.12.09)**  
+I used v117.1.1 in another project.  
+Only installed Xamarin.Firebase.Crashlytics and it worked fine!  
+|package|version|
+----|----
+|Xamarin.Firebase.Crashlytics|117.1.1|
+
++++++  
+
 Install the following packages on MyApp.Android.  
 |package|version|
 ----|----
