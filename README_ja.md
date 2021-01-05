@@ -22,6 +22,9 @@ Xamarinユーザーの場合、Androidでは`Xamarin.Firebase.Crash`のパッケ
 
 ま、ほんとは依存関係のバグなんかも一緒に解決されていることを期待したんですがね……。ダメでしたね。
 
+# (2020.12.09)Xamarin.Firebase.Crashlytics 117.1.1 release
+別の案件でv117.1.1を使用したところ、その他のパッケージをインストールすることなく、正常に動きました！  
+2. パッケージのインストール欄に記載しています。  
 
 # 実装環境
 Operating System & Version : macOS 10.15.4 (19E287)  
@@ -53,7 +56,7 @@ MyApp.Androidには、下記のCrashlyticsに関連するパッケージが入�
 
 ## 2. パッケージのインストール
 +++++**(2020.12.09)**  
-別の案件でv117.1.1を使用したところ、その他のパッケージをインストールすることなく、正常に動きました！  
+v117.1.1ですと、Xamarin.Firebase.Crashlyticsのみで正常に動きました。  
 |package|version|
 ----|----
 |Xamarin.Firebase.Crashlytics|117.1.1|
