@@ -21,6 +21,10 @@ On October 25, 2020, Xamarin.Firebase.Crashlytics released the official version 
 I've tried it out and found that the steps in this document work fine.  
 Therefore, I rewrote 117.0.0-preview02 to 117.0.0 in this document other than the Overview.  
 
+# (2020.12.09)Xamarin.Firebase.Crashlytics 117.1.1 release
+I used v117.1.1 in another project.  
+Only installed Xamarin.Firebase.Crashlytics and it worked fine!  
+
 # My environment
 Operating System & Version : macOS 10.15.4 (19E287)  
 Xamarin.Android Version : 11.0.2.0  
@@ -51,8 +55,7 @@ I uninstalled all of these.
 
 ## 2. Install new packages
 +++++**(2020.12.09)**  
-I used v117.1.1 in another project.  
-Only installed Xamarin.Firebase.Crashlytics and it worked fine!  
+With v117.1.1, it works fine only with Xamarin.Firebase.Crashlytics.  
 |package|version|
 ----|----
 |Xamarin.Firebase.Crashlytics|117.1.1|
